@@ -9,7 +9,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import io.swagger.annotations.ApiModelProperty;
-import jp.co.ricoh.cotos.commonlib.entity.contract.Contract.LifecycleStatus;
 import lombok.Data;
 
 /**
@@ -35,8 +34,8 @@ public class ContractCheckResult {
 	/**
 	 * 対象ライフサイクル状態
 	 */
-	@ApiModelProperty(value = "対象ライフサイクル状態", required = true, position = 3)
-	private LifecycleStatus targetLifecycleStatus;
+	@ApiModelProperty(value = "対象ライフサイクル状態", required = true, position = 3, allowableValues = "range[0,9999999999999999999]")
+	private long targetLifecycleStatus;
 
 	/**
 	 * チェック事項コード

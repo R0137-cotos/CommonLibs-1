@@ -37,21 +37,6 @@ public class EstimationChecklistCompMaster {
 		}
 	}
 
-	public enum TargetLifecycleStatus {
-
-		作成中;
-
-		@JsonValue
-		public String toValue() {
-			return this.name();
-		}
-
-		@JsonCreator
-		public static Enum<TargetLifecycleStatus> fromValue(String name) {
-			return Arrays.stream(values()).filter(v -> v.name() == name).findFirst().orElseThrow(() -> new IllegalArgumentException(String.valueOf(name)));
-		}
-	}
-
 	@Id
 	@ApiModelProperty(value = "チェックリスト構成マスタID", required = true, position = 1, allowableValues = "range[0,9999999999999999999]")
 	private long id;
@@ -75,8 +60,8 @@ public class EstimationChecklistCompMaster {
 	 * 対象ライフサイクル状態
 	 */
 	@ApiModelProperty(value = "対象ライフサイクル状態<br /> "//
-			+ "作成中<br /> ", required = true, position = 4)
-	private TargetLifecycleStatus targetLifecycleStatus;
+			+ "作成中<br /> ", required = true, position = 4, allowableValues = "range[0,9999999999999999999]")
+	private long targetLifecycleStatus;
 
 	/**
 	 * 汎用チェック事項マスタ

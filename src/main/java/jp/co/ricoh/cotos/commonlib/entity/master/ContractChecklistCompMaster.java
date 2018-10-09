@@ -3,7 +3,6 @@ package jp.co.ricoh.cotos.commonlib.entity.master;
 import java.util.Arrays;
 
 import javax.persistence.Entity;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -37,25 +36,6 @@ public class ContractChecklistCompMaster {
 		}
 	}
 
-	public enum TargetLifecycleStatus {
-
-		作成中, キャンセル手続き中, 解約手続き中;
-
-		@JsonValue
-		public String toValue() {
-			return this.name();
-		}
-
-		@JsonCreator
-		public static Enum<TargetLifecycleStatus> fromValue(String name) {
-			return Arrays.stream(values()).filter(v -> v.name() == name).findFirst().orElseThrow(() -> new IllegalArgumentException(String.valueOf(name)));
-		}
-	}
-
-	@Id
-	@ApiModelProperty(value = "チェックリスト構成マスタID", required = true, position = 1, allowableValues = "range[0,9999999999999999999]")
-	private long id;
-
 	/**
 	 * 商品
 	 */
@@ -75,8 +55,8 @@ public class ContractChecklistCompMaster {
 	 * 対象ライフサイクル状態
 	 */
 	@ApiModelProperty(value = "対象ライフサイクル状態<br /> "//
-			+ "作成中/キャンセル手続き中/解約手続き中", required = true, position = 4)
-	private TargetLifecycleStatus targetLifecycleStatus;
+			+ "作成中/キャンセル手続き中/解約手続き中", required = true, position = 4, allowableValues = "range[0,9999999999999999999]")
+	private long targetLifecycleStatus;
 
 	/**
 	 * 汎用チェック事項マスタ

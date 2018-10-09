@@ -48,51 +48,6 @@ public class Contract extends EntityBase {
 		}
 	}
 
-	public enum LifecycleStatus {
-
-		作成中, 作成完了, キャンセル手続き中, 破棄, 予定日待ち, 締結中, 解約手続き中, 解約予定日待ち, 解約, 旧契約;
-
-		@JsonValue
-		public String toValue() {
-			return this.name();
-		}
-
-		@JsonCreator
-		public static Enum<LifecycleStatus> fromValue(String name) {
-			return Arrays.stream(values()).filter(v -> v.name() == name).findFirst().orElseThrow(() -> new IllegalArgumentException(String.valueOf(name)));
-		}
-	}
-
-	public enum WorkflowStatus {
-
-		作成中, 承認中, 承認済, 業務依頼中, 業務処理完了, キャンセル申請中, 売上可能, 解約申請中;
-
-		@JsonValue
-		public String toValue() {
-			return this.name();
-		}
-
-		@JsonCreator
-		public static Enum<WorkflowStatus> fromValue(String name) {
-			return Arrays.stream(values()).filter(v -> v.name() == name).findFirst().orElseThrow(() -> new IllegalArgumentException(String.valueOf(name)));
-		}
-	}
-
-	public enum CommercialFlowDiv {
-
-		直売, 代売_接点店, 代売_母店_接点店; //TODO ERD、汎用コード値資料に記載がないため正しいか確認
-
-		@JsonValue
-		public String toValue() {
-			return this.name();
-		}
-
-		@JsonCreator
-		public static Enum<CommercialFlowDiv> fromValue(String name) {
-			return Arrays.stream(values()).filter(v -> v.name() == name).findFirst().orElseThrow(() -> new IllegalArgumentException(String.valueOf(name)));
-		}
-	}
-
 	@Id
 	@ApiModelProperty(value = "契約ID", required = true, position = 1, allowableValues = "range[0,9999999999999999999]")
 	private long id;
@@ -106,14 +61,14 @@ public class Contract extends EntityBase {
 	/**
 	 * ライフサイクル状態
 	 */
-	@ApiModelProperty(value = "ライフサイクル状態", required = true, position = 3)
-	private LifecycleStatus lifecycleStatus;
+	@ApiModelProperty(value = "ライフサイクル状態", required = true, position = 3, allowableValues = "range[0,9999999999999999999]")
+	private long lifecycleStatus;
 
 	/**
 	 * ワークフロー状態
 	 */
-	@ApiModelProperty(value = "ワークフロー状態", required = true, position = 4)
-	private WorkflowStatus workflowStatus;
+	@ApiModelProperty(value = "ワークフロー状態", required = true, position = 4, allowableValues = "range[0,9999999999999999999]")
+	private long workflowStatus;
 
 	/**
 	 * 商品マスタ
@@ -236,14 +191,14 @@ public class Contract extends EntityBase {
 	/**
 	 * 商流区分
 	 */
-	@ApiModelProperty(value = "商流区分", required = false, position = 24)
-	private CommercialFlowDiv commercialFlowDiv;
+	@ApiModelProperty(value = "商流区分", required = false, position = 24, allowableValues = "range[0,9999999999999999999]")
+	private long commercialFlowDiv;
 
 	/**
 	 * 発行書式
 	 */
-	@ApiModelProperty(value = "発行書式", required = false, position = 25, allowableValues = "range[0,255]")
-	private String issueFormat;
+	@ApiModelProperty(value = "発行書式", required = false, position = 25, allowableValues = "range[0,9999999999999999999]")
+	private long issueFormat;
 
 	/**
 	 * 得意先コード
